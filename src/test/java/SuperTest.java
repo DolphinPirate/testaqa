@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import java.util.concurrent.TimeUnit;
@@ -31,8 +32,8 @@ public class SuperTest {
     @BeforeTest
     public void PreCondition(){
        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get(url);
+       driver = new ChromeDriver();
+       driver.get(url);
     }
 
     @Test (priority = 1)
@@ -47,7 +48,7 @@ public class SuperTest {
         }
     }
 
-    @Test (priority = 2)
+    @Test
     public void myTestGetUrl(){
        /* for (String u : urls) {
             WebDriverWait wait = (new WebDriverWait(driver, 5));
@@ -61,11 +62,12 @@ public class SuperTest {
         System.out.println(driver.getCurrentUrl());
     }
 
-    @Test (priority = 3)
+    @Test
     public void myTestGetTitle(){
 
-      Assert.assertEquals(titleSite, driver.getTitle());
         System.out.println(driver.getTitle());
+        Assert.assertEquals(titleSite, driver.getTitle());
+
     }
 
     @AfterTest
