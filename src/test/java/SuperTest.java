@@ -62,7 +62,6 @@ public class SuperTest {
     public void myTestGetTitle(){
         WebDriverWait wait = (new WebDriverWait(driver, 2));
         wait.until(ExpectedConditions.urlToBe(url2));
-
         System.out.println(driver.getTitle());
         Assert.assertEquals(driver.getTitle(), titleSite);
     }
