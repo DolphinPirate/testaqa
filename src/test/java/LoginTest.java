@@ -19,6 +19,8 @@ public class LoginTest {
     private String login;
     private String password;
 
+
+
     @BeforeTest
     public void PreCondition() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -53,8 +55,8 @@ public class LoginTest {
     private String getLogin() {
         return login = "ArtemOdessaAQA";
     }
-
     private String getPassword() {
         return password = "zzd-xU2-6Fr-Jrv";
     }
+
 }
