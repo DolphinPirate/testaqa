@@ -13,13 +13,12 @@ class DriverBRO{
     }
 
     LoginPage pageLogin = PageFactory.initElements(driver, LoginPage.class);
-    pageLogin.reg();
+   // pageLogin.reg();
 
    public static String urlProject = "http://nnmclub.to/";
 
     public static void startBrouserChrome() {
         BruserChrome();
-        open(urlProject);
         setPropertyWindow();
         setPropertyTimeOut();
     }
