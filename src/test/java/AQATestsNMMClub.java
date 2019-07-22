@@ -1,8 +1,16 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class AQATestsNMMClub {
+
+    private WebDriver driver;
 
     @BeforeTest
     public void preCondition(){
@@ -19,7 +27,27 @@ public class AQATestsNMMClub {
 
     @Test (priority = 1)
     public void firstTest(){
-        DriverBRO.open("");
+
+        String urlProject = "http://nnmclub.to/";
+        By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
+        By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");
+
+        By searchOurUrl = By.xpath("//*[text()='NNM-Club: Торрент-трекер']");
+
+        DriverBRO.open("https://www.google.ru/");
+        driver.findElement(searchInputForText).sendKeys("nnm-club");
+        driver.findElement(searchButton).click();
+        driver.findElement(searchOurUrl).click();
+
+        for (String tab : driver.getWindowHandles()) {
+            driver.switchTo().window(tab);
+        }
+        WebDriverWait wait = (new WebDriverWait(driver, 10));
+        wait.until(ExpectedConditions.urlToBe(urlProject));
+
+        System.out.println(driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), urlProject);
+
     }
 
     // ====================================
