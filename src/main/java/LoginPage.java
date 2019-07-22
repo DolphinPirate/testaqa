@@ -1,10 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage{
+public class LoginPage {
 
     private WebDriver driver;
 
@@ -16,30 +13,31 @@ public class LoginPage{
     private By inputPassword = By.xpath("//input[@name='password']");
     private By ClikButtonEntertToSite = By.xpath("//input[@name='login']");
 
-    public LoginPage register(String username, String password){
+    public LoginPage reg(String username, String password) {
         this.typeUsername(username);
         this.typePassword(password);
         this.clickButtonEnter();
         return new LoginPage(driver);
     }
-    public LoginPage typeUsername(String username){
+
+    public LoginPage typeUsername(String username) {
         driver.findElement(inputLogin).sendKeys(username);
         return this;
     }
 
-    public LoginPage typePassword(String password){
+    public LoginPage typePassword(String password) {
         driver.findElement(inputPassword).sendKeys(password);
         return this;
     }
 
-    public LoginPage clickButtonEnter(){
+    public LoginPage clickButtonEnter() {
         driver.findElement(ClikButtonEntertToSite).click();
         return new LoginPage(driver);
     }
 
-    public void logInToSite(){
+    public void logInToSite() {
 
-       // WebDriverWait wait = (new WebDriverWait(driver, 3));
+        // WebDriverWait wait = (new WebDriverWait(driver, 3));
         // wait.until(ExpectedConditions.urlToBe(url));
         // String mainTab = driver.getWindowHandle();
         // driver.switchTo().window(mainTab);

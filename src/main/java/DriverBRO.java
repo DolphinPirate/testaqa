@@ -13,10 +13,9 @@ class DriverBRO{
     }
 
     LoginPage pageLogin = PageFactory.initElements(driver, LoginPage.class);
-    pageLogin.register("ArtemOdessaAQA", "zzd-xU2-6Fr-Jrv");
+    pageLogin.reg();
 
-    public static String urlGoogle = "https://www.google.ru/";
-    public static String urlProject = "http://nnmclub.to/";
+   public static String urlProject = "http://nnmclub.to/";
 
     public static void startBrouserChrome() {
         BruserChrome();
