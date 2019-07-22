@@ -18,15 +18,16 @@ class DriverBRO{
    //public static String urlProject = "http://nnmclub.to/";
    //private static String urlGoogle = "https://www.google.ru/";
 
-    public static void startBrouserChrome() {
+    public static void startBrouserChrome(String url) {
         BruserChrome();
+        driver.get(url);
         setPropertyWindow();
         setPropertyTimeOut();
     }
 
-    public static void open(String url) {
-        driver.get(url);
-    }
+//    public static void open(String url) {
+//
+//    }
 
     public static void closeDriver() {
         driver.close();
