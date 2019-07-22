@@ -10,16 +10,13 @@ import org.testng.annotations.Test;
 public class LoginTest {
 
     private WebDriver driver;
+    private MainPage mainPage;
 
     private By inputLogin = By.xpath("//input[@name='username']");
     private By inputPassword = By.xpath("//input[@name='password']");
     private By ClikButtonEntertToSite = By.xpath("//input[@name='login']");
     private By LogOutUser = By.xpath("//a[text()='Выход [ "+getLogin()+" ]']");
     private String url = "http://nnmclub.to/";
-    private String login;
-    private String password;
-
-
 
     @BeforeTest
     public void PreCondition() {
