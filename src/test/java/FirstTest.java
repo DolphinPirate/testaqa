@@ -19,14 +19,14 @@ public class FirstTest {
     public void myTestSearch() {
 
         System.out.println("Hello TEST");
-       /* driver.findElement(By.cssSelector("#tsf [type=\"text\"]")).sendKeys(k);
+       driver.findElement(By.cssSelector("#tsf [type=\"text\"]")).sendKeys(k);
         driver.findElement(By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)")).click();
         WebElement a = driver.findElement(By.xpath("//*[text()='NNM-Club: Торрент-трекер']"));
         a.click();
         for (String tab : driver.getWindowHandles()) {
             driver.switchTo().window(tab);
         }
-        */
+
     }
 
         /*
