@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,8 +27,8 @@ public class AQATestsNMMClub {
        // DriverBRO.startBrouserChrome(urlGoogle);
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
     }
 
     @AfterTest
@@ -42,7 +43,6 @@ public class AQATestsNMMClub {
     // содержащему текст "NNM-Club: Торрент-трекер"
     //4. проверка: проверяем что мы перешли
     // на страницу http://nnmclub.to/
-    //
 
     @Test (priority = 1)
     public void firstTest(){
@@ -60,11 +60,13 @@ public class AQATestsNMMClub {
         }
 
         WebDriverWait wait = (new WebDriverWait(driver, 10));
-        if (driver.getCurrentUrl()== urlProject1 |  driver.getCurrentUrl()== urlProject2) {
-            wait.until(ExpectedConditions.urlToBe(driver.getCurrentUrl()));
-            link = driver.getCurrentUrl();
-            Assert.assertEquals(driver.getCurrentUrl(),link);
+
+        if ((driver.getCurrentUrl()== urlProject1) |  (driver.getCurrentUrl()== urlProject2)) {
+            String mainURL = driver.getCurrentUrl();
+            wait.until(ExpectedConditions.urlToBe(mainURL));
+            Assert.assertEquals(driver.getCurrentUrl(),mainURL);
         }
+
         Assert.assertEquals(driver.getTitle(), titleProject);
 
     }
@@ -79,6 +81,16 @@ public class AQATestsNMMClub {
     @Test (priority = 2)
     public void loginTest(){
 
+        driver.findElement(By.xpath("//a[text()='Вход']")).click();
+        driver.findElement(By.xpath("//input[@name='username']")).sendKeys("ArtemOdessaAQA");
+        driver.findElement(By.xpath("//input[@name='password']")).sendKeys("zzd-xU2-6Fr-Jrv");
+        String mainTab = driver.getWindowHandle();
+        driver.switchTo().window(mainTab);
+
+        driver.findElement(By.xpath("//input[@name='login']")).click();
+        By exit = By.xpath("//a[contains(text(), 'Выход')]");
+
+        Assert.assertTrue(driver.findElement(exit).isDisplayed());
     }
 
     // ====================================
