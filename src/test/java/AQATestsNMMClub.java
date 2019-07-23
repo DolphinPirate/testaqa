@@ -1,19 +1,18 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-
 import java.util.concurrent.TimeUnit;
 
 public class AQATestsNMMClub {
 
-    private WebDriver driver;
+   private WebDriver driver;
 
    private String urlProject1 = "http://nnmclub.to/";
    private String urlProject2 = "https://n.iss.one/";
@@ -24,7 +23,6 @@ public class AQATestsNMMClub {
 
     @BeforeTest
     public void preCondition(){
-       // DriverBRO.startBrouserChrome(urlGoogle);
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -33,7 +31,7 @@ public class AQATestsNMMClub {
 
     @AfterTest
     public void afterTests(){
-        driver.quit();
+        //driver.quit();
     }
 
     // ====================================
@@ -78,19 +76,22 @@ public class AQATestsNMMClub {
     //2. Зайти под созданным пользователем
     //3. Проверка: убедится что вход успешен
 
+    @Ignore
     @Test (priority = 2)
     public void loginTest(){
 
         driver.findElement(By.xpath("//a[text()='Вход']")).click();
-        driver.findElement(By.xpath("//input[@name='username']")).sendKeys("ArtemOdessaAQA");
-        driver.findElement(By.xpath("//input[@name='password']")).sendKeys("zzd-xU2-6Fr-Jrv");
         String mainTab = driver.getWindowHandle();
         driver.switchTo().window(mainTab);
-
+        driver.findElement(By.xpath("//input[@name='username']")).sendKeys("ArtemOdessaAQA");
+        driver.findElement(By.xpath("//input[@name='password']")).sendKeys("zzd-xU2-6Fr-Jrv");
         driver.findElement(By.xpath("//input[@name='login']")).click();
+        for (String tab : driver.getWindowHandles()) {
+            driver.switchTo().window(tab);
+        }
         By exit = By.xpath("//a[contains(text(), 'Выход')]");
-
         Assert.assertTrue(driver.findElement(exit).isDisplayed());
+
     }
 
     // ====================================
@@ -102,6 +103,21 @@ public class AQATestsNMMClub {
 
     @Test (priority = 3)
     public void searchOnTreker(){
+        driver.get("http://nnmclub.to/forum/tracker.php");
+        By inputSearch = By.xpath("//table[@class='menubot']//input[@name='nm']");
+        By buttonSearch = By.xpath("//input[@class='mbutton']");
+        By dropList = By.xpath("//select[@name='tm']");
+        By mounth3Last = By.xpath("//select[@name='tm']//option[@value='90']");
+        driver.findElement(inputSearch).sendKeys("Java");
+       // String mainTab = driver.getWindowHandle();
+       // driver.switchTo().window(mainTab);
+        driver.findElement(buttonSearch).click();
+        driver.findElement(dropList).click();
+        driver.findElement(mounth3Last).click();
 
+       // driver.findElement(dropList).click();
+//        WebDriverWait wait = (new WebDriverWait(driver, 2));
+//        wait.until(ExpectedConditions.);
+       // driver.findElement(mounth3Last).click();
     }
 }
