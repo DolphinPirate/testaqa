@@ -1,12 +1,32 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class AQATestsNMMClub {
 
+   WebDriver driver;
+   static DriverBRO mainDriver;
+
+    String urlProject = "http://nnmclub.to/";
+   String urlGoogle = "https://www.google.ru/";
+
     @BeforeTest
     public void preCondition(){
-        DriverBRO.startBrouserChrome();
+        DriverBRO.startBrouserChrome(urlGoogle);
+        //  mainDriver = new DriverBRO();
+        // WebDriverWait wait = (new WebDriverWait(driver, 2));
+        //  wait.until(ExpectedConditions.urlToBe(urlGoogle));
+    }
+
+    @AfterTest
+    public void afterTests(){
+        DriverBRO.closeDriver();
     }
 
     // ====================================
@@ -19,7 +39,31 @@ public class AQATestsNMMClub {
 
     @Test (priority = 1)
     public void firstTest(){
-        DriverBRO.open("");
+
+        WebElement searhInput = driver.findElement(By.cssSelector("#tsf [type=\"text\"]"));
+        searhInput.sendKeys("nnm-club");
+
+        driver.findElement(By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)")).click();
+        WebElement a = driver.findElement(By.xpath("//*[text()='NNM-Club: Торрент-трекер']"));
+        a.click();
+
+        for (String tab : driver.getWindowHandles()) {
+            driver.switchTo().window(tab);
+        }
+
+        WebDriverWait wait = (new WebDriverWait(driver, 10));
+        wait.until(ExpectedConditions.urlToBe(urlProject));
+
+        System.out.println(driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(), urlProject);
+
+       By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
+        By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");
+        By searchOurUrl = By.xpath("//*[text()='NNM-Club: Торрент-трекер']");
+
+        driver.findElement(searchInputForText);
+        driver.findElement(searchButton).click();
+        driver.findElement(searchOurUrl).click();
     }
 
     // ====================================
@@ -44,10 +88,5 @@ public class AQATestsNMMClub {
     @Test (priority = 3)
     public void searchOnTreker(){
 
-    }
-
-    @AfterTest
-    public void afterTest(){
-        DriverBRO.closeDriver();
     }
 }
