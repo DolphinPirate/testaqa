@@ -1,19 +1,17 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+
 import java.util.concurrent.TimeUnit;
 class DriverBRO{
    private static WebDriver driver;
-   // LoginPage pageLogin = PageFactory.initElements(driver, LoginPage.class);
+
+   LoginPage pageLogin = PageFactory.initElements(driver, LoginPage.class);
 
     // pageLogin.reg();
 
    //public static String urlProject = "http://nnmclub.to/";
    //private static String urlGoogle = "https://www.google.ru/";
-
-
-    public static WebDriver getDriver() {
-        return driver;
-    }
 
     public static WebDriver startBrouserChrome(String url) {
         BruserChrome();

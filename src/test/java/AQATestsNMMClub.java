@@ -1,6 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -8,25 +8,31 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class AQATestsNMMClub {
 
-   WebDriver driver;
-   static DriverBRO mainDriver;
+    private WebDriver driver;
 
-    String urlProject = "http://nnmclub.to/";
-   String urlGoogle = "https://www.google.ru/";
+   private String urlProject1 = "http://nnmclub.to/";
+   private String urlProject2 = "https://n.iss.one/";
+   private String titleProject = "Торрент-трекер :: NNM-Club";
+   private String link;
+
+   private String urlGoogle = "https://www.google.ru/";
 
     @BeforeTest
     public void preCondition(){
-        DriverBRO.startBrouserChrome(urlGoogle);
-        //  mainDriver = new DriverBRO();
-        // WebDriverWait wait = (new WebDriverWait(driver, 2));
-        //  wait.until(ExpectedConditions.urlToBe(urlGoogle));
+       // DriverBRO.startBrouserChrome(urlGoogle);
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
     }
 
     @AfterTest
     public void afterTests(){
-        DriverBRO.closeDriver();
+        driver.quit();
     }
 
     // ====================================
@@ -36,34 +42,31 @@ public class AQATestsNMMClub {
     // содержащему текст "NNM-Club: Торрент-трекер"
     //4. проверка: проверяем что мы перешли
     // на страницу http://nnmclub.to/
+    //
 
     @Test (priority = 1)
     public void firstTest(){
+        driver.get(urlGoogle);
+        By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
+        By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");
+        By searchOurUrl = By.xpath("//*[text()='NNM-Club: Торрент-трекер']");
 
-        WebElement searhInput = driver.findElement(By.cssSelector("#tsf [type=\"text\"]"));
-        searhInput.sendKeys("nnm-club");
-
-        driver.findElement(By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)")).click();
-        WebElement a = driver.findElement(By.xpath("//*[text()='NNM-Club: Торрент-трекер']"));
-        a.click();
+       driver.findElement(searchInputForText).sendKeys("nnm-club");
+       driver.findElement(searchButton).click();
+       driver.findElement(searchOurUrl).click();
 
         for (String tab : driver.getWindowHandles()) {
             driver.switchTo().window(tab);
         }
 
         WebDriverWait wait = (new WebDriverWait(driver, 10));
-        wait.until(ExpectedConditions.urlToBe(urlProject));
+        if (driver.getCurrentUrl()== urlProject1 |  driver.getCurrentUrl()== urlProject2) {
+            wait.until(ExpectedConditions.urlToBe(driver.getCurrentUrl()));
+            link = driver.getCurrentUrl();
+            Assert.assertEquals(driver.getCurrentUrl(),link);
+        }
+        Assert.assertEquals(driver.getTitle(), titleProject);
 
-        System.out.println(driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(), urlProject);
-
-       By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
-        By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");
-        By searchOurUrl = By.xpath("//*[text()='NNM-Club: Торрент-трекер']");
-
-        driver.findElement(searchInputForText);
-        driver.findElement(searchButton).click();
-        driver.findElement(searchOurUrl).click();
     }
 
     // ====================================
