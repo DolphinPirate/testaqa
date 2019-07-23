@@ -42,6 +42,7 @@ public class AQATestsNMMClub {
     // содержащему текст "NNM-Club: Торрент-трекер"
     //4. проверка: проверяем что мы перешли
     // на страницу http://nnmclub.to/
+    //
 
     @Test (priority = 1)
     public void firstTest(){
@@ -59,13 +60,11 @@ public class AQATestsNMMClub {
         }
 
         WebDriverWait wait = (new WebDriverWait(driver, 10));
-
         if (driver.getCurrentUrl()== urlProject1 |  driver.getCurrentUrl()== urlProject2) {
             wait.until(ExpectedConditions.urlToBe(driver.getCurrentUrl()));
             link = driver.getCurrentUrl();
             Assert.assertEquals(driver.getCurrentUrl(),link);
         }
-
         Assert.assertEquals(driver.getTitle(), titleProject);
 
     }
