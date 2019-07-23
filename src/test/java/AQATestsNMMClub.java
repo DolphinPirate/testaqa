@@ -10,19 +10,22 @@ import org.testng.annotations.Test;
 
 public class AQATestsNMMClub {
 
-   private WebDriver driver;
-   String urlProject = "http://nnmclub.to/";
+   WebDriver driver;
+   static DriverBRO mainDriver;
+
+    String urlProject = "http://nnmclub.to/";
    String urlGoogle = "https://www.google.ru/";
 
     @BeforeTest
     public void preCondition(){
         DriverBRO.startBrouserChrome(urlGoogle);
-        WebDriverWait wait = (new WebDriverWait(driver, 2));
-        wait.until(ExpectedConditions.urlToBe(urlGoogle));
+        //  mainDriver = new DriverBRO();
+        // WebDriverWait wait = (new WebDriverWait(driver, 2));
+        //  wait.until(ExpectedConditions.urlToBe(urlGoogle));
     }
 
     @AfterTest
-    public void afterTest(){
+    public void afterTests(){
         DriverBRO.closeDriver();
     }
 
@@ -54,15 +57,13 @@ public class AQATestsNMMClub {
         System.out.println(driver.getCurrentUrl());
         Assert.assertEquals(driver.getCurrentUrl(), urlProject);
 
-       /* By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
+       By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
         By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");
         By searchOurUrl = By.xpath("//*[text()='NNM-Club: Торрент-трекер']");
 
         driver.findElement(searchInputForText);
         driver.findElement(searchButton).click();
-        driver.findElement(searchOurUrl).click();*/
-
-
+        driver.findElement(searchOurUrl).click();
     }
 
     // ====================================
