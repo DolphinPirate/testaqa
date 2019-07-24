@@ -40,14 +40,14 @@ public class AQATestsNMMClub {
     //4. проверка: проверяем что мы перешли
     // на страницу http://nnmclub.to/
 
-    @Test (priority = 1)
+    @Test (priority = 1)//TODO: убрать приоритезацию
     public void firstTest(){
         driver.get(urlGoogle);
-        By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");
-        By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");
+        By searchInputForText = By.cssSelector("#tsf [type=\"text\"]");//TODO: переделать селектор
+        By searchButton = By.cssSelector("div.FPdoLc.VlcLAe input[type=\"submit\"]:nth-child(1)");//TODO: переделать селектор
         By searchOurUrl = By.xpath("//*[text()='NNM-Club: Торрент-трекер']");
 
-       driver.findElement(searchInputForText).sendKeys("nnm-club");
+       driver.findElement(searchInputForText).sendKeys("nnm-club");//TODO: тут появляется меню гугла, нужно стабилизировать тест
        driver.findElement(searchButton).click();
        driver.findElement(searchOurUrl).click();
 
@@ -55,12 +55,12 @@ public class AQATestsNMMClub {
             driver.switchTo().window(tab);
         }
 
-        WebDriverWait wait = (new WebDriverWait(driver, 10));
-
-        if ((driver.getCurrentUrl()== urlProject1) |  (driver.getCurrentUrl()== urlProject2)) {
+        //TODO: сделать нормальные асерты, сейчас логика работы не правильная, строки сравниваются не правильно
+        WebDriverWait wait = (new WebDriverWait(driver, 10));//TODO: без него не работает?
+        if ((driver.getCurrentUrl()==urlProject1) |  (driver.getCurrentUrl()==urlProject2)) {
             String mainURL = driver.getCurrentUrl();
             wait.until(ExpectedConditions.urlToBe(mainURL));
-            Assert.assertEquals(driver.getCurrentUrl(),mainURL);
+            Assert.assertEquals(driver.getCurrentUrl(),urlProject1);
         }
 
         Assert.assertEquals(driver.getTitle(), titleProject);
@@ -84,7 +84,7 @@ public class AQATestsNMMClub {
         driver.findElement(By.xpath("//input[@name='username']")).sendKeys("ArtemOdessaAQA");
         driver.findElement(By.xpath("//input[@name='password']")).sendKeys("zzd-xU2-6Fr-Jrv");
         driver.findElement(By.xpath("//input[@name='login']")).click();
-        for (String tab : driver.getWindowHandles()) {
+        for (String tab : driver.getWindowHandles()) { 
             driver.switchTo().window(tab);
         }
         By exit = By.xpath("//a[contains(text(), 'Выход')]");
