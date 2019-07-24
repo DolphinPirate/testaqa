@@ -103,15 +103,20 @@ public class AQATestsNMMClub {
     public void searchOnTreker(){
         driver.get("http://nnmclub.to/forum/tracker.php");
         By inputSearch = By.xpath("//table[@class='menubot']//input[@name='nm']");
+        By inputSearch2 = By.cssSelector("input#nm.post");
         By buttonSearch = By.xpath("//input[@class='mbutton']");
+        By buttonSearch2 = By.xpath("//input[@class=\"liteoption\"]");
         By dropList = By.xpath("//select[@name='tm']");
         By mounth3Last = By.xpath("//select[@name='tm']//option[@value='90']");
         driver.findElement(inputSearch).sendKeys("Java");
        // String mainTab = driver.getWindowHandle();
        // driver.switchTo().window(mainTab);
         driver.findElement(buttonSearch).click();
+        driver.findElement(inputSearch2).sendKeys("Java");
         driver.findElement(dropList).click();
         driver.findElement(mounth3Last).click();
+
+        driver.findElement(buttonSearch2).click();
 
        // driver.findElement(dropList).click();
 //        WebDriverWait wait = (new WebDriverWait(driver, 2));
